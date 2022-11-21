@@ -1,0 +1,38 @@
+/config/workspace
+
+create database hive_class;
+
+use hive_class;
+
+create table sales_csv
+    > (
+    > product_type string,
+    > total_sales int
+    > )
+    > row format delimited
+    > fields terminated by ',';
+    
+    set hive.cli.print.header=true;
+    
+    select * from sales_csv;
+    
+  load data local inpath "file:///tmp/hive/sales_data_raw.csv" into table sales_csv;
+    
+  load data local inpath "file:///config/workspace/sales_data.csv" into table sales_csv;
+   
+  #identical table
+  create table sales_csv_bkp as select * from sales_csv;
+  
+  select * from sales_csv_bkp;
+  
+  describe extended sales_csv;
+  
+  #parquet table
+   create table sales_data_pq
+    > (
+    > product_type string,
+    > total_sales int)
+    > stores as parquet;
+    
+    
+     
