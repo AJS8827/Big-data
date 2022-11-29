@@ -148,5 +148,6 @@ hadoop fs -ls /user/hive/warehouse/hive_class.db/sales_order_grouped*
 select year_id from sales_order_data_orc sort by year_id desc;
 
 
+
     
 
