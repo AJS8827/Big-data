@@ -86,7 +86,7 @@ tblproperties("skip.header.line.count"="1")
 
 # load sales_order_data.csv data into above mentioned tables
 
-load data local inpath '/config/workspace/sales' into table;
+load data local inpath '/config/workspace/sales_order_data.csv' into table sales_order_data_csv_v1;
 
 create table sales_order_data_orc
 (
@@ -147,6 +147,24 @@ hadoop fs -ls /user/hive/warehouse/hive_class.db/sales_order_grouped*
 
 select year_id from sales_order_data_orc sort by year_id desc;
 
+# set this property if doing static partition
+set hive.mapred.mode=strict;
+
+# create table command for partition tables - for Static
+
+create table sales_data_static_part                                                                                                     
+    > (                                                                                                                                       
+    > ORDERNUMBER int,                                                                                                                        
+    > QUANTITYORDERED int,                                                                                                                    
+    > SALES float,                                                                                                                            
+    > YEAR_ID int                                                                                                                             
+    > )                                                                                                                                       
+    > partitioned by (COUNTRY string); 
+    
+# load data in static partition
+
+insert overwrite table sales_data_static_part partition(country = 'USA') select ordernumber,quantityordered,sales,year_id from sales_ord
+er_data_orc where country = 'USA';
 
 
     
