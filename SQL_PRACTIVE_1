@@ -1,0 +1,11 @@
+ttps://archive.ics.uci.edu/ml/datasets/bank+marketing
+
+https://archive.ics.uci.edu/ml/machine-learning-databases/00222/
+
+https://docs.google.com/spreadsheets/d/1PihBy0shGRpgWOA_KTkkWZOE0L2wuw-F0mAE1bicifI/edit?usp=sharing
+
+
+
+show databases
+create database if not exists practice_sql
+use practice_sql
